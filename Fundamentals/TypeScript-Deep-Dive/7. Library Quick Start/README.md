@@ -18,29 +18,38 @@ package
   └─ ... All your compiled files (Generated)
 ```
 
-* export everything in index.ts -> so it is available when
+- export everything in index.ts -> so it is available when
+
 ```javascript
 import * from 'example'
 ```
-* tsconfig.json
+
+- tsconfig.json
+
 ```json
 {
-  "compilerOptions":{
-    "outDir" : "lib",
-    "declaration" : true,
-    "declarationMap" : true,
-    "include" : "src"
+  "compilerOptions": {
+    "outDir": "lib",
+    "declaration": true,
+    "declarationMap": true,
+    "include": "src"
   }
 }
 ```
-* package.json
+
+- package.json
+
 ```json
 {
-  "main":"lib/index",
-  "types":"lib/index"
+  "main": "lib/index",
+  "types": "lib/index"
 }
 ```
+
 ## Managing Dependencies
+
 ### devDependencies
+
 ### peerDependencies
+
 ### dependencies

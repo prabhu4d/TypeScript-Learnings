@@ -1,6 +1,7 @@
 # Browser Project Setup
 
 ## Quick Setup
+
 ```nodejs
 git clone https://github.com/basarat/react-typescript.git
 cd react-typescript
@@ -8,11 +9,14 @@ npm install
 ```
 
 ## Detailed Setup
+
 ```powershell
 mkdir your-project
 cd your-project
 ```
-* tsconfig.json
+
+- tsconfig.json
+
 ```json
 {
   "compilerOptions": {
@@ -23,18 +27,15 @@ cd your-project
     "experimentalDecorators": true,
     "target": "es5",
     "jsx": "react",
-    "lib": [
-      "dom",
-      "es6"
-    ]
+    "lib": ["dom", "es6"]
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "compileOnSave": false
 }
 ```
-* package.json
+
+- package.json
+
 ```json
 {
   "name": "react-typescript",
@@ -63,7 +64,9 @@ cd your-project
   }
 }
 ```
-* webpack.config.js
+
+- webpack.config.js
+
 ```javascript
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -72,30 +75,31 @@ module.exports = {
   entry: './src/app/app.tsx',
   plugins: [
     new CleanWebpackPlugin({
-      cleanAfterEveryBuildPatterns: ['public/build']
+      cleanAfterEveryBuildPatterns: ['public/build'],
     }),
     new HtmlWebpackPlugin({
-      template: 'src/templates/index.html'
+      template: 'src/templates/index.html',
     }),
   ],
   output: {
     path: __dirname + '/public',
-    filename: 'build/[name].[contenthash].js'
+    filename: 'build/[name].[contenthash].js',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
-    rules: [
-      { test: /\.tsx?$/, loader: 'ts-loader' }
-    ]
-  }
-}
+    rules: [{ test: /\.tsx?$/, loader: 'ts-loader' }],
+  },
+};
 ```
+
 ## Develop your amazing application
+
 ```powershell
 npm install typescript@latest react@latest react-dom@latest @types/react@latest @types/react-dom@latest webpack@latest webpack-dev-server@latest webpack-cli@latest ts-loader@latest clean-webpack-plugin@latest html-webpack-plugin@latest --save-exact
 ```
+
 ```powershell
 npm start
 npm run build

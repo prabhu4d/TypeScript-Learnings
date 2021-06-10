@@ -1,4 +1,5 @@
 # NodeJS Project Setup
+
 ```nodejs
 npm init -y
 npm install typescript --save-dev
@@ -7,6 +8,7 @@ npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule 
 ```
 
 ## Bonus: Live compile + run
+
 ```nodejs
 npm install ts-node --save-dev
 npm install nodemon --save-dev
