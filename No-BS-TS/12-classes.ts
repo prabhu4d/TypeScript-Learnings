@@ -1,8 +1,8 @@
-interface Database {
-  create(value: string): void;
-  find(id: number): string;
-  update(id: number, value: string): void;
-  remove(id: number): void;
+interface Database<Key, Value> {
+  create(id: Key, value: Value): void;
+  find(id: Key): Value;
+  update(id: Key, value: Value): void;
+  remove(id: Key): void;
   findAll(): void;
 }
 
@@ -11,20 +11,22 @@ interface Persistable {
   restoreFromString(storedString: string): void;
 }
 
-class InMemoryDataBase implements Database {
-  private currentIndex: number = 0;
-  protected db: Record<number, string> = {};
-  create(value: string): void {
-    this.db[this.currentIndex] = value;
-    this.currentIndex++;
-  }
-  find(id: number): string {
-    return this.db[id];
-  }
-  update(id: number, value: string): void {
+type DBKeys = string | number | symbol;
+
+class InMemoryDataBase<Key extends DBKeys, Value>
+  implements Database<Key, Value>
+{
+  protected db: Record<Key, Value> = {} as Record<Key, Value>;
+  create(id: Key, value: Value): void {
     this.db[id] = value;
   }
-  remove(id: number): void {
+  find(id: Key): Value {
+    return this.db[id];
+  }
+  update(id: Key, value: Value): void {
+    this.db[id] = value;
+  }
+  remove(id: Key): void {
     delete this.db[id];
   }
   findAll(): void {
@@ -38,7 +40,10 @@ class InMemoryDataBase implements Database {
   }
 }
 
-class DiskDB extends InMemoryDataBase implements Persistable {
+class DiskDB<Key extends DBKeys, Value>
+  extends InMemoryDataBase<Key, Value>
+  implements Persistable
+{
   saveToString(): string {
     return JSON.stringify(this.db);
   }
@@ -48,8 +53,9 @@ class DiskDB extends InMemoryDataBase implements Persistable {
 }
 
 const redis = new DiskDB();
-redis.create("nice");
-redis.create("typescript");
+redis.create("first", "nice");
+redis.create(10, 10);
+redis.create("12", 12);
 redis.findAll();
 const backup = redis.saveToString();
 
